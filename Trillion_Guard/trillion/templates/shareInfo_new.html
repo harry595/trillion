@@ -1,0 +1,19 @@
+{% extends 'base.html'%} {% load static %} {% block content%}
+<div class="jumbotron jumbotronfluid">
+<div class="container my-5" >  
+  <h3 class="my-3">Share Info - New Posting</h3><hr/>
+  <form action="{% url 'shareInfo_create' %}" method="post">
+      {% csrf_token %}
+      <div >
+        <label for="title" >Title</label><br>
+        <input type="text" class="col-sm-2 col-form-label" name="title" id="title">
+      </div>
+      <div style="margin-top:16px">
+          <label for="content" >Content</label><br>
+        <textarea class="col-sm-2 col-form-label" name="content" id="content" cols="30" rows="10"></textarea>
+      </div>
+      <input class="btn btn-info mt-3" type="submit" name="submit" value="Write">
+    </form><hr/>
+</div>
+</div>
+{% endblock %}

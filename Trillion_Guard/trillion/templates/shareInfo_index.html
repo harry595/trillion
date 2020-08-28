@@ -1,0 +1,63 @@
+{% extends 'base.html'%} {% load static %} {% block content%}
+<div class="jumbotron jumbotronfluid">
+  <h3 class="my-3">SHARE INFO</h3>
+  <table class="table  table-hover">
+    <thead>
+        <th>#</th>
+        <th>Title</th>
+        <th>Author</th>
+        <th>Activity</th>
+        <th>Detail</th>
+    </thead>
+    <tbody>
+    {% for post in posts %}
+        <tr>
+            <td>{{ post.id}}</td>
+            <td>{{ post.title }}</td>
+            <td>{{ post.author }}</td>
+            <td>{{ post.created_date }}</td>
+            <td><a class="button btn" href="{% url 'shareInfo_show' pk=post.pk %}">More Infomation...</a></td>
+        </tr>
+    {% endfor %}
+    </tbody>
+  </table>    
+<a href="/shareInfo/new/"><input class="btn btn-info mt-3" type="submit" value="Write" /></div> </a>
+
+
+{% comment %} <div class="row mt-2">
+  <div class="col-12">
+    <nav>
+      <ul class="pagination justify-content-center">
+        {% if posts.has_previous %}
+        <li class="page-item">
+          <a class="page-link" href="?page=1">이전으로</a>
+        </li>                         
+        <li class="page-item">
+          <a class="page-link" href="?page={{posts.previous_page_number }}">이전으로</a>
+        </li>
+        {% else %}
+        <li class="page-item disabled">
+          <a class="page-link" href="#">이전으로</a>
+        </li>
+        {% endif %}
+        <li class="page-item">
+          <a class="page-link" href="#">{{posts.next_page_number}}/{{posts.paginator.num_pages}}</a>
+        </li>
+        {% if posts.has_next %}
+        <li class="page-item">
+          <a class="page-link" href="?page={{posts.next_page_number }}">다음으로</a>
+        </li>
+        <li class="page-item">
+          <a class="page-link" href="?page={{posts.paginator.num_pages}}">맨 뒤로</a>
+        </li>
+        {% else %}
+        <li class="page-item disabled">
+          <a class="page-link" href="#">다음으로</a>
+        </li>
+        {% endif %}
+      </ul>
+    </nav>
+  </div>
+</div>
+</div> {% endcomment %}
+{% endblock %}

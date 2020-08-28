@@ -1,0 +1,33 @@
+{% extends 'base.html'%} {% load static %} {% block content%}
+<br />
+<style>
+  .chart_content {
+    font-family: "Helvetica Neue", Arial;
+    font-size: 16px;
+    width: 100%;
+    margin-top: 5%;
+    margin-left: 10%;
+  }
+  .chart_content .bar_chart {
+    float: left;
+    width: 30%;
+  }
+  .chart_content .ratio_chart {
+    float: left;
+    margin-left: 10%;
+    width: 60%;
+  }
+</style>
+
+<div class="chart_content">
+  <div class="bar_chart" id="Bar_chart">
+    {{ Bar_chart|safe }}
+  </div>
+  <div class="ratio_chart" id="Legitimate_ratio_chart">
+    {{ Legitimate_ratio_chart|safe }}
+  </div>
+  <br />
+  <br />
+</div>
+
+{% endblock %}

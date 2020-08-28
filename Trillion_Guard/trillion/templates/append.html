@@ -1,0 +1,43 @@
+<div id="result" class="result">
+  <link rel="stylesheet" type="text/css" href="/static/css/common.css" />
+  <link rel="stylesheet" type="text/css" href="/static/css/button.css" />
+  <hr />
+  <!-- http://www.naver.com  -->
+
+  <div>
+    {% if flag == 1 %}
+    <img
+      src="/static/image/legitimate.gif"
+      alt="Loading..."
+      style="width: 400px; margin-left: 38%;"
+    />
+    {% elif flag == 0%}
+    <img
+      src="/static/image/phishing.gif"
+      alt="Loading..."
+      style="width: 400px; margin-left: 38%;"
+    />
+    {% else %}
+    <img
+      src="/static/image/half2.gif"
+      alt="Loading..."
+      style="width: 400px; margin-left: 38%;"
+    />
+    {% endif %}
+  </div>
+
+  <div class="res_content">
+    <button
+      class="btn_search"
+      style="
+        text-align: center;
+        margin-top: 10px;
+        margin-left: 43%;
+        width: 200px;
+      "
+      onclick="location.href = '/detail?url={{url}}'"
+    >
+      URL 정보 상세 보기
+    </button>
+  </div>
+</div>

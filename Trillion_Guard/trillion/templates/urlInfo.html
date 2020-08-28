@@ -1,0 +1,64 @@
+{% extends 'base.html'%} {% load static %} 
+{% load list_extras %}
+{% block content %} 
+<link
+  rel="stylesheet"
+  href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+/>
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+<link rel="stylesheet" type="text/css" href="/static/css/common.css">
+<script>
+  $(function () {
+    $('[data-toggle="popover"]').popover({
+      trigger: "focus",
+      delay: { "hide": 100 }
+      
+    });
+  });
+</script>
+<style>
+  #btnst {
+    border: none;
+    padding: 0px;
+    outline: 0;
+    background-color: rgba( 255, 255, 255, 0.5 );
+    height: 0px;
+  }
+</style>
+
+
+
+<div class="content">
+    <!-- Title -->
+    <div class="tit_h2">
+        <h2>URL 상세정보</h2>
+    </div>
+    <div class="info_basic">
+        <table class="table table-striped">
+          <tr style="text-align: center;  font-size:20px;">
+            <th style="border-right:1px solid rgb(192, 192, 192); ">Feature</th>
+            <th>Result</th>
+          </tr>
+            {% for c in 1|range:14 %}
+            <tr style="text-align: center;">
+                <td class="info" style="font-weight: bold; border-right:1px solid rgb(192, 192, 192); ">
+                    {{title|index:c}}
+                    <button
+                      data-toggle="popover"
+                      title="{{title|index:c}}"
+                      id="btnst"
+                      data-content="{{content|index:c}}"> 
+                      <img src="{% static 'image/info.png' %}" alt="" style="margin-bottom: 14px;"/>
+                    </button>
+                </td>
+                <td>{{makefeature|index:c}}</td>
+            </tr>
+            {% endfor %}
+        </table>
+    </div>
+</div>
+
+
+{% endblock %}

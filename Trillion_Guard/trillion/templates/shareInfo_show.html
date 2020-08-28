@@ -1,0 +1,24 @@
+{% extends 'base.html'%} {% load static %} {% block content%}
+    {% if messages %}
+        <script>
+            alert("{{ messages }}");
+        </script>
+    {% endif %}
+<div class="jumbotron jumbotronfluid">
+    <h3 class="my-3" >{{ post.title }}</h3> <!--{%}는 장고 템플릿 태그-->
+        
+        
+        <hr/>
+        <p> {{ post.content|linebreaksbr }} </p>
+        
+    
+    
+    <hr/>
+    {% if post.created_date %} 
+        <div class="date" ><b>Upload : </b>{{post.created_date}}</div>
+    {% endif %}
+    <div class="date"><b>Author : </b>{{ post.author }}</div><hr/>
+    <a class="button btn" href="{% url 'shareInfo_delete' pk=post.pk %}"><input class="btn btn-info mt-3" type="submit" value="Delete" /></a>
+    <a class="button btn" href="/shareInfo/"><input class="btn btn-info mt-3" type="submit" value="Back" /></a>
+</div>
+{% endblock %}

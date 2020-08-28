@@ -1,0 +1,7 @@
+{% for i in board_list.paginator.page_range|slice:plSlice %} 
+  {% if board_list.number == i %}     
+    <span class="active">{{ i }} </span>
+  {% else %}
+    <a href="?page={{ i }}">{{ i }}</a>
+  {% endif %}
+{% endfor %}

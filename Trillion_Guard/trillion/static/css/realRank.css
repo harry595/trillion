@@ -1,0 +1,25 @@
+*{margin:0; padding:0}
+#rank_contain{ border: 2px solid yellowgreen; width: 320px; height: 40px; }
+#rank_box {
+    width: 300px;
+    height: 40px;
+    position: relative;
+    display: block;
+    top: 0;
+    left: 10px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    line-height: 40px;
+    white-space: nowrap;
+    word-wrap:break-word;
+}
+#rank_box p{ text-align: left; height: 40px; line-height: 40px; }
+
+/*  overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 3; 
+    -webkit-box-orient: vertical;
+    word-wrap:break-word; 
+    line-height: 1.2em;
+    height: 3.6em;*/

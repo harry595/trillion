@@ -1,0 +1,276 @@
+{% extends 'base.html'%} {% block content %}
+<!-- Date Picker 한국어 -->
+
+<script src="http://code.jquery.com/ui/1.11.4/jquery-ui.min.js"></script>
+<!-- Date Picker 한국어 -->
+<script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/i18n/datepicker-ko.js"></script>
+<!-- css -->
+<link rel="stylesheet" type="text/css" href="/static/css/common.css" />
+<link rel="stylesheet" type="text/css" href="/static/css/button.css" />
+<!-- Table Sorting -->
+<script type="text/javascript" src="/static/js/sorting.js"></script>
+<!-- 달력 위치 Setting -->
+<style>
+  img.ui-datepicker-trigger {
+    margin-left: 10px;
+    margin-bottom: 4px;
+    vertical-align: middle;
+    cursor: pointer;
+  }
+</style>
+
+<!-- DatePicker Setting -->
+<script type="text/javascript">
+  $(function () {
+    /* 한국어 설정 */
+    $.datepicker.setDefaults($.datepicker.regional["ko"]);
+    /* 시작일 */
+    $("#fromDate").datepicker({
+      showOn: "button", // 달력을 표시할 타이밍 (both: focus or button)
+      buttonImage: "/static/image/calendar.png", // 버튼 이미지
+      buttonImageOnly: true, // 버튼 이미지만 표시할지 여부
+      buttonText: "날짜선택", // 버튼의 대체 텍스트
+      dateFormat: "yy-mm-dd", // 날짜의 형식
+      changeMonth: true, // 월을 이동하기 위한 선택상자 표시여부
+      changeYear: true,
+      onClose: function (selectedDate) {
+        /* 시작일 선택이 종료일 선택 이후로 될 수 없도록 처리*/
+        $("#toDate").datepicker("option", "minDate", selectedDate);
+      },
+    });
+    /* 종료일 */
+    $("#toDate").datepicker({
+      showOn: "button",
+      buttonImage: "/static/image/calendar.png",
+      buttonImageOnly: true,
+      buttonText: "날짜선택",
+      dateFormat: "yy-mm-dd",
+      changeMonth: true,
+      changeYear: true,
+      onClose: function (selectedDate) {
+        /* 종료일 선택이 시작일 선택 이전으로 될 수 없도록 처리*/
+        $("#fromDate").datepicker("option", "maxDate", selectedDate);
+      },
+    });
+  });
+</script>
+
+<div class="content">
+  <!-- Title -->
+  <div class="tit_h2">
+    <h2>URL 목록</h2>
+  </div>
+  <!-- //Title -->
+  <!-- Search -->
+  <div id="searchDiv" class="search_basic">
+    <table>
+      <form action="./?page=1" method="POST">
+        <colgroup>
+          <col width="110px" />
+          <col width="" />
+          <col width="110px" />
+          <col width="" />
+          <col width="110px" />
+          <col width="" />
+        </colgroup>
+        <tr>
+          <th>Domain</th>
+          <!-- <td style="padding-right:35px;"> -->
+          <td>
+            <input
+              type="text"
+              class="searchMd_input"
+              value="{{domain_input}}"
+              name="domain_input"
+              id="domain_input"
+              style="height: 25px; width: 80%;"
+            />
+          </td>
+        </tr>
+        <tr>
+          <th>Date</th>
+          <td>
+            <input
+              type="text"
+              name="fromDate"
+              id="fromDate"
+              value="{{fromDate}}"
+              style="
+                height: 25px;
+                width: 100px;
+                text-align: center;
+                font-weight: bold;
+              "
+              readonly="readonly"
+            />
+            <span
+              style="
+                font-size: 25px;
+                margin-left: 10px;
+                margin-right: 10px;
+                font-weight: bold;
+              "
+              >-</span
+            >
+            <input
+              type="text"
+              name="toDate"
+              id="toDate"
+              value="{{toDate}}"
+              style="
+                height: 25px;
+                width: 100px;
+                text-align: center;
+                font-weight: bold;
+              "
+              readonly="readonly"
+            />
+            {% csrf_token %}
+          </td>
+        </tr>
+        <tr class="line">
+          <td colspan="2" style="text-align: right;">
+            <button id="btn_init" class="btn_init">초기화</button>
+            <button class="btn_search">검색</button>
+          </td>
+        </tr>
+      </form>
+    </table>
+  </div>
+  <!-- //Search -->
+
+  <!-- List -->
+  <div class="listMd">
+    <table id="table_sort" class="list_basic" cellpadding="15">
+      <colgroup>
+        <col width="*" />
+        <col width="200px" />
+        <col width="110px" />
+        <col width="10%"/>
+      </colgroup>
+      <thead>
+        <tr>
+          <th style="text-align: left;">URL</th>
+          <th>
+            Recent Date<span
+              onclick="reverseTD(1)"
+              style="margin-left: 5px; cursor: pointer;"
+              >▲</span
+            >
+          </th>
+          <th>
+            Hits<span
+              onclick="reverseTD(2)"
+              style="margin-left: 5px; cursor: pointer;"
+              >▲</span
+            >
+          </th>
+          <th>
+            Label<span
+            onclick="reverseTD(3)"
+            style="margin-left: 5px; cursor: pointer;"
+            >▲</span
+            >
+          </th>  
+          <!-- 조회수 오름차순 정렬 -->
+        </tr>
+      </thead>
+      <tbody>
+        <!-- URL: 왼쪽 정렬 // 나머지: 가운데정렬-->
+        {% for board in board_list %}
+        <tr>
+          <td style="text-align: left;">{{ board.URL}}</td>
+          <td>{{ board.DATE}}</td>
+          <td>{{ board.HITS}}</td>
+          <td>
+            {% if board.LABEL == "1" %}
+              Legitimate
+            {% else %}
+              Phishing
+            {% endif %}
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+  <!-- //List -->
+</div>
+<!-- Table 오름차순 / 내림차순 정렬-->
+<script type="text/javascript">
+  var myTable = document.getElementById("table_sort");
+  var replace = replacement(myTable);
+  function sortTD(index) {
+    replace.ascending(index);
+  }
+  function reverseTD(index) {
+    replace.descending(index);
+  }
+  /* 검색 조건 초기화 */
+  $("#btn_init").click(function () {
+		$("#searchDiv input[type=text]").each(function() {
+			$(this).val('');
+		});
+  });
+</script>
+
+
+<div style="margin-left: 40%; margin-top:20px; font-size:20px; font-weight: bold;">
+{% if board_list.has_other_pages %}    
+<ul class = "pagination">
+  {% if board_list.has_previous %} 
+    <span><a href="?page={{ board_list.previous_page_number }}">&laquo;</a></span>
+  {% else %}
+    <span class = "disabled">&laquo;</span>
+  {% endif %}
+
+
+  {% if 5 >= board_list.number %}
+    {% include "./slicing.html" with plSlice=":10" %}
+
+  {%elif max_index|add:"-5" >= 0 %}
+      {% with  plSlice=":" %}
+        {% include "./slicing.html"  %}
+      {% endwith %}
+    
+  {%elif board_list.number|add:5 >= max_index %}
+    {% with  pflasg=max_index|add:"-10"|stringformat:"s" %}
+      {% with  plSlice=pflasg|add:":" %}
+        {% include "./slicing.html"  %}
+      {% endwith %}
+    {% endwith %}
+    
+  {% else %}
+    {% with  pfCount=board_list.number|add:"-5"|stringformat:"s" %}
+      {% with  plCount=board_list.number|add:5|stringformat:"s" %}
+        {% with  plSlice=pfCount|add:":"|add:plCount %}
+          {% include "./slicing.html"  %}
+        {% endwith %}
+      {% endwith %}
+    {% endwith %} 
+  {% endif %}
+
+  {% if board_list.has_next %}   
+      <a href="?page={{ board_list.next_page_number }}">&raquo;</a>
+  {% else %}
+      <span class="disabled">&raquo;</span>
+  {%endif %}
+</ul>
+{%endif%}
+</div>
+
+<form name="form1" method="POST">
+  <input type="hidden" name="toDate" value="{{toDate}}" />
+  <input type="hidden" name="fromDate" value="{{fromDate}}" />
+  <input type="hidden" name="domain_input" value="{{domain_input}}" />
+</form>
+
+<script>
+  function formCheck() {
+    var page = toDate;
+    form1.action = "/?id={{toDate}}";
+    form1.submit();
+  }
+</script>
+
+{% endblock %}

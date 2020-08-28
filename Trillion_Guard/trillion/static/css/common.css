@@ -1,0 +1,36 @@
+.content {min-width:800px; width: 80%; }
+.tit_h2 { margin-top: 120px; margin-left: 150px; padding:0 0 50px 0; font-family:'Jeju Gothic',Arial;}
+.tit_h2 h2 { display:block; float:left; padding:0 0 0 0; margin:0; font-weight:bold; font-size:24px;}
+
+.searchMd_input { height:26px; line-height:26px; padding:0 7px; border:1px solid #868383;}
+
+/* 검색 테이블 영역 */
+.search_basic { margin-left: 150px; position:relative; padding:10px 20px 5px 20px; background:#eeeeee}
+.search_basic table {width:100%; margin:0; padding:0;}
+.search_basic th {line-height:14px; text-align:left; font-size:15px; color:#000; padding: 10px 0 0 20px;}
+.search_basic td {font-size:15px; padding:20px 15px 10px 10px;}
+.search_basic tr.line td  { padding-top: 8px; border-top:1px solid #cfcfcf; padding-top:6px; font-size:11px; color:#777}
+.search_basic tr.line td:first-child  {line-height:1.4;}
+
+/* 상세정보 테이블 영역*/
+.info_basic { margin-left: 130px; position:relative; padding:10px 20px 5px 20px; background:white; }
+.info_basic table {
+    width: 50%; margin:0; padding:0; height: 15px;
+}
+
+/* list 영역 */
+.listMd { border:1px solid #777; margin-top: 30px; margin-left: 150px; position:relative; }
+.list_basic { width:100%; border:1px solid #777; table-layout:fixed; text-align:center; empty-cells:show;}
+.list_basic th { color:rgb(255, 255, 255); border:1px solid #777; background-color:rgb(5, 5, 5); font-size: 14px; height: 10px; padding: 7px; }
+.list_basic td { padding:5px; border:1px solid #777; color:#333; height:10px; background-color:#fff;
+display:table-cell; text-overflow:ellipsis; white-space:nowrap; overflow:hidden;
+}
+.list_basic td#url{ padding:5px; border:1px solid #777; color:#333; height:10px; background-color:#fff;
+    display:table-cell; text-overflow:ellipsis; white-space:nowrap; overflow:hidden; text-align: left;
+}
+
+/* 결과 */
+.result { width: 100%; }
+.res_content {  padding:0 0 50px 0; font-family:'Jeju Gothic',Arial; }
+.res_content h2 { display: block; margin-top: 15px; padding:0 0 0 0; font-weight:bold; font-size:20px; }
+
